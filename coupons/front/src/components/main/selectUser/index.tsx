@@ -3,20 +3,54 @@ import { SelectUserWrapper } from "../../../styles/main";
 import UserCircle from "../../../assets/images/main/user.svg";
 import { StaticImage } from "gatsby-plugin-image";
 import Button from "../../common/Button";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import USER from "../../../constants/user";
+import httpInstance from "../../../httpModules/httpInstance";
+import axios from "axios";
+import STATUS from "../../../constants/status";
 interface ISelectUser {
-  onChange: () => void;
+  onChangeLogin: () => void;
 }
-const SelectUser = ({ onChange }: ISelectUser) => {
-  const [user, setUser] = useState("prince");
+const SelectUser = ({ onChangeLogin }: ISelectUser) => {
+  const [user, setUser] = useState(
+    sessionStorage.getItem(USER.NAME) ?? "prince"
+  );
+
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setUser(e.currentTarget.value);
-    sessionStorage.setItem(USER.NAME, e.currentTarget.value);
   };
-  const handleFetch = async () => {
-    onChange();
+
+  const handleFetch = async ({
+    identifier,
+    password,
+  }: {
+    identifier: string;
+    password: string;
+  }) => {
+    const {
+      data: { data, status },
+    } = await httpInstance().post(`/auth/local`, {
+      identifier,
+      password,
+    });
+
+    if (status !== STATUS.OK) {
+    }
+    sessionStorage.setItem(USER.NAME, user);
+    sessionStorage.setItem(USER.JWT, data.jwt);
+    sessionStorage.setItem(USER.LOGIN, JSON.stringify(true));
+    await onChangeLogin();
   };
+  const princeFetcher = () =>
+    handleFetch({
+      identifier: process.env.PRINCE_ID as string,
+      password: process.env.PRINCE_PW as string,
+    });
+  const princessFetcher = () =>
+    handleFetch({
+      identifier: process.env.PRINCESS_ID as string,
+      password: process.env.PRINCESS_PW as string,
+    });
   return (
     <div>
       <SelectUserWrapper>
@@ -58,9 +92,15 @@ const SelectUser = ({ onChange }: ISelectUser) => {
           JOO 💕
         </Button>
         &nbsp;
-        <Button size={"lg"} execute={handleFetch} variant={"primary"}>
-          Check User!
-        </Button>
+        {user === "prince" ? (
+          <Button size={"lg"} execute={princeFetcher} variant={"primary"}>
+            Check User!
+          </Button>
+        ) : (
+          <Button size={"lg"} execute={princessFetcher} variant={"primary"}>
+            Check User!
+          </Button>
+        )}
       </SelectUserWrapper>
     </div>
   );

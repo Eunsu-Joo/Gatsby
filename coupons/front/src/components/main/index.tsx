@@ -5,14 +5,14 @@ import Line from "../../assets/images/main/line.svg";
 import Button from "../common/Button";
 import * as React from "react";
 
-const Main = () => {
+const Main = ({ count }: { count: number }) => {
   return (
     <MainWrapper>
       <Bg1 className={"topItem"} />
       <div className={"couponCount"}>
-        <p className={"desc"}>Coupon Count</p>
+        <p className={"desc"}>현재 보유 쿠폰 수</p>
         <p className={"count"}>
-          <CouponImage /> <span>20</span>
+          <CouponImage /> <span>{count}</span>
         </p>
       </div>
       <Line className={"line"} />

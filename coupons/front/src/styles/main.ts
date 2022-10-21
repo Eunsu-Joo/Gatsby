@@ -2,6 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 export const MainWrapper = styled.div`
   min-height: 812px;
+  height: auto;
+  position: relative;
   .line {
     margin-top: -15px;
   }
@@ -123,5 +125,63 @@ export const SelectUserWrapper = styled.div`
     font-family: var(--en);
     font-size: 24px;
     margin: 48px 0 64px 0;
+  }
+`;
+export const CouponListWrapper = styled.div`
+  .total {
+    font-family: var(--en);
+    font-weight: 600;
+    margin-bottom: 36px;
+    span {
+      color: var(--red);
+    }
+  }
+`;
+export const CouponItemWrapper = styled.div`
+  background: #fbfbfb;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  height: 80px;
+  margin-top: 24px;
+  position: relative;
+  display: flex;
+  padding: 12px;
+  &:before,
+  &:after {
+    content: "";
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  &:before {
+    left: -16px;
+  }
+  &:after {
+    right: -16px;
+  }
+  .icon {
+    width: 30%;
+    height: inherit;
+    border-right: 2px dashed rgba(102, 102, 102, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .itemContents {
+    width: 70%;
+    padding-left: 12px;
+    color: #333;
+
+    h3 {
+      font-weight: 700;
+      font-size: 20px;
+    }
+    p {
+    }
   }
 `;

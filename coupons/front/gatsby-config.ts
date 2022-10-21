@@ -75,7 +75,12 @@ const config: GatsbyConfig = {
         ],
       },
     },
-
+    {
+      resolve: "gatsby-source-rest-api",
+      options: {
+        endpoints: ["https://vast-plateau-12471.herokuapp.com/api/coupons"],
+      },
+    },
     // gatsby-source-filesystem
     // 사이트가 구축되면 옵션으로 gatsby-source-filesystem 지정된 폴더의 모든파일을 데이터 영역에 추가한다.
     // path (__dirname)은 현재 실행중인 파일이 포함된 디렉토리의 절대 경로를 저장하는 변수이다.

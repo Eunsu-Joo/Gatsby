@@ -1,11 +1,19 @@
 import styled from "@emotion/styled";
-
+import Prince from "../assets/images/main/shin.jpg";
 export const HeaderWrapper = styled.header`
   padding: var(--s2) var(--s3);
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.1);
+  max-width: 428px;
+  margin: 0 auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: var(--bg);
   .toggle {
     border: 0;
     display: inline-block;
@@ -33,6 +41,8 @@ export const HeaderWrapper = styled.header`
     z-index: 10;
     overflow: hidden;
     border: 2px solid var(--yellow);
+    width: 36px;
+    height: 36px;
   }
   .default {
     width: 100%;

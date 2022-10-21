@@ -2,30 +2,24 @@ import { Link, navigate } from "gatsby";
 import { HeaderWrapper, NavLinks } from "../../styles/header";
 import Toggle from "../../assets/images/icons/toggle.svg";
 import Close from "../../assets/images/icons/close.svg";
-import Prince from "../../assets/images/icons/prince.svg";
-import Princess from "../../assets/images/icons/princess.svg";
 import { useEffect, useState } from "react";
 import USER from "../../constants/user";
-import { GatsbyImage, StaticImage } from "gatsby-plugin-image";
+import { StaticImage } from "gatsby-plugin-image";
 const Links = [
   { url: "/", name: "HOME" },
+  { url: "/my_coupon", name: "my coupon" },
   { url: "/create", name: "create coupon" },
   { url: "/reviews", name: "REVIEWs" },
 ];
-const Header = ({
-  onDeleteUser,
-}: {
-  onDeleteUser?: (name: string) => void;
-}) => {
+const Header = ({ onChangeLogin }: { onChangeLogin: any }) => {
   const [isToggle, setIsToggle] = useState(false);
-  const [username, setUsername] = useState("");
-  useEffect(() => {
-    setUsername(sessionStorage.getItem(USER.NAME) ?? "");
-  }, []);
+  const [username, _] = useState(sessionStorage.getItem(USER.NAME) ?? "");
   const selectUser = async () => {
-    if (onDeleteUser) onDeleteUser(sessionStorage.getItem(USER.NAME) ?? "");
-    await navigate("/");
+    setIsToggle(!isToggle);
+    onChangeLogin();
+    sessionStorage.setItem(USER.LOGIN, JSON.stringify(false));
   };
+
   return (
     <HeaderWrapper>
       <h1 className={"title"}>
